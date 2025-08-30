@@ -20,3 +20,27 @@ This project extracts text from an image using **Amazon Rekognition**, translate
    ```bash
    git clone https://github.com/your-username/aws-ai-image-translator.git
    cd aws-ai-image-translator
+
+pip install -r requirements.txt
+
+
+aws configure
+
+ python main.py
+
+   echo "# AWS AI Image Translator Project" >> README.md
+git add README.md
+git commit -m "Added README file"
+git push
+
+
+echo "boto3" >> requirements.txt
+git add requirements.txt
+git commit -m "Added requirements.txt"
+git push
+
+
+git add .
+git commit -m "Updated project"
+git push
+
