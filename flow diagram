@@ -1,0 +1,16 @@
+   📸 Input Image
+        |
+        v
+[ Amazon Rekognition ]
+   (Extract text)
+        |
+        v
+[ Amazon Translate ]
+   (Translate text)
+        |
+        v
+[ Amazon Polly ]
+   (Convert text → Speech)
+        |
+        v
+   🔊 Output MP3 + Display Text
