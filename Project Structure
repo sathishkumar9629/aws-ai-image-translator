@@ -1,0 +1,5 @@
+aws-ai-image-translator/
+│── main.py             # Main Python code
+│── requirements.txt    # Dependencies
+│── README.md           # Documentation
+│── samples/            # Example input/output files
