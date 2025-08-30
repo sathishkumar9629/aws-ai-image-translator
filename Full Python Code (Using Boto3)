@@ -1,0 +1,48 @@
+import boto3
+
+# Initialize AWS clients
+rekognition = boto3.client('rekognition', region_name="us-east-1")
+translate = boto3.client('translate', region_name="us-east-1")
+polly = boto3.client('polly', region_name="us-east-1")
+
+# 1. Detect text from image using Rekognition
+def detect_text_from_image(image_path):
+    with open(image_path, "rb") as image:
+        response = rekognition.detect_text(Image={'Bytes': image.read()})
+    detected_texts = [d['DetectedText'] for d in response['TextDetections']]
+    return " ".join(detected_texts)
+
+# 2. Translate text using Translate
+def translate_text(text, target_lang="hi"):  # default Hindi
+    response = translate.translate_text(
+        Text=text,
+        SourceLanguageCode="auto",
+        TargetLanguageCode=target_lang
+    )
+    return response['TranslatedText']
+
+# 3. Convert text to speech using Polly
+def text_to_speech(text, output_file="output.mp3", voice="Aditi"):
+    response = polly.synthesize_speech(
+        Text=text,
+        OutputFormat="mp3",
+        VoiceId=voice
+    )
+    with open(output_file, "wb") as f:
+        f.write(response['AudioStream'].read())
+    print(f"✅ Audio saved as {output_file}")
+
+# -------------------- MAIN --------------------
+if __name__ == "__main__":
+    # Step 1: Extract text
+    image_file = "signboard.jpg"  # replace with your image
+    original_text = detect_text_from_image(image_file)
+    print("📖 Detected Text:", original_text)
+
+    # Step 2: Translate text
+    translated_text = translate_text(original_text, target_lang="ta")  # Tamil
+    print("🌍 Translated Text:", translated_text)
+
+    # Step 3: Convert translated text to speech
+    text_to_speech(translated_text, output_file="translated_speech.mp3", voice="Aditi")
+    print("🔊 Done! Play translated_speech.mp3 to hear result.")
